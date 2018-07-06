@@ -51,11 +51,11 @@ clean_up()
 }
 
 # Patch recipes to fix bugs
-patch -Np1 -r - sources/meta-fsl-bsp-release/imx/meta-sdk/conf/distro/include/fsl-imx-preferred-env.inc < sources/meta-edm-bsp-release/patches/0001-remove-preferred-provider-for-u-boot-and-kernel-to-l.patch
-patch -Np1 -r - sources/meta-fsl-bsp-release/imx/meta-bsp/recipes-graphics/mesa/mesa-demos_%.bbappend < sources/meta-edm-bsp-release/patches/0002-mesa-demos-add-support-for-multi-platform.patch
-patch -Np1 -r - sources/meta-fsl-bsp-release/imx/meta-sdk/conf/distro/include/fsl-imx-base.inc < sources/meta-edm-bsp-release/patches/0004-fsl-imx-base.inc-remove-hard-coded-IMAGE_FSTYPES.patch
-patch -Np1 -r - sources/meta-fsl-arm/classes/image_types_fsl.bbclass < sources/meta-edm-bsp-release/patches/0005-image_types_fsl.bbclass-modify-to-put-u-boot.img-int.patch
-patch -Np1 -r - sources/meta-fsl-arm/conf/machine/include/imx-base.inc < sources/meta-edm-bsp-release/patches/0006-imx-base.inc-add-default-IMAGE_FSTYPES-for-imx6-imx6.patch
+patch -Np1 -r - sources/meta-fsl-bsp-release/imx/meta-sdk/conf/distro/include/fsl-imx-preferred-env.inc < sources/meta-ncc-bsp-release/patches/0001-remove-preferred-provider-for-u-boot-and-kernel-to-l.patch
+patch -Np1 -r - sources/meta-fsl-bsp-release/imx/meta-bsp/recipes-graphics/mesa/mesa-demos_%.bbappend < sources/meta-ncc-bsp-release/patches/0002-mesa-demos-add-support-for-multi-platform.patch
+patch -Np1 -r - sources/meta-fsl-bsp-release/imx/meta-sdk/conf/distro/include/fsl-imx-base.inc < sources/meta-ncc-bsp-release/patches/0004-fsl-imx-base.inc-remove-hard-coded-IMAGE_FSTYPES.patch
+patch -Np1 -r - sources/meta-fsl-arm/classes/image_types_fsl.bbclass < sources/meta-ncc-bsp-release/patches/0005-image_types_fsl.bbclass-modify-to-put-u-boot.img-int.patch
+patch -Np1 -r - sources/meta-fsl-arm/conf/machine/include/imx-base.inc < sources/meta-ncc-bsp-release/patches/0006-imx-base.inc-add-default-IMAGE_FSTYPES-for-imx6-imx6.patch
 
 # get command line options
 OLD_OPTIND=$OPTIND
@@ -212,7 +212,7 @@ echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-filesystems \"" >
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-xfce \"" >> $BUILD_DIR/conf/bblayers.conf
 
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-qt5 \"" >> $BUILD_DIR/conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-edm-bsp-release \"" >> $BUILD_DIR/conf/bblayers.conf
+echo "BBLAYERS += \" \${BSPDIR}/sources/meta-ncc-bsp-release \"" >> $BUILD_DIR/conf/bblayers.conf
 
 echo BSPDIR=$BSPDIR
 echo BUILD_DIR=$BUILD_DIR
@@ -230,7 +230,7 @@ CPU_TYPE=`echo $MACHINE | sed 's/.*-\(imx[5-8][a-z]*\)[- $]*.*/\1/g'`
 echo CPU_TYPE=$CPU_TYPE
 
 # Generate uEnv.txt for u-boot
-UENV_PATH="../sources/meta-edm-bsp-release/recipes-bsp/u-boot/u-boot-uenv"
+UENV_PATH="../sources/meta-ncc-bsp-release/recipes-bsp/u-boot/u-boot-uenv"
 
 echo UENV_PATH=$UENV_PATH
 
@@ -304,7 +304,7 @@ echo DISPLAY=$DISPLAY
 # imx6 may output to LVDS/TTL_LCD or HDMI, and the default audio output device also depends on them.
 # LVDS/TTL_LCD: output to audio codec(SGTL5k), HDMI: output to HDMI audio
 if [ "$CPU_TYPE" == 'imx6' ]; then
-	PULSEAUDIO_PATH="../sources/meta-edm-bsp-release/recipes-multimedia/pulseaudio/pulseaudio"
+	PULSEAUDIO_PATH="../sources/meta-ncc-bsp-release/recipes-multimedia/pulseaudio/pulseaudio"
 	if [ -f $PULSEAUDIO_PATH/default.pa ] ; then
 		rm $PULSEAUDIO_PATH/default.pa
 	fi
